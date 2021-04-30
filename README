@@ -1,0 +1,2 @@
+The meta-st-workshop layer provides the custom image for the STM32MP157A MS Azure IoTEdge workshop
+Note: the image is based on the st-image-weston image in OpenSTLinux-weston distribution
