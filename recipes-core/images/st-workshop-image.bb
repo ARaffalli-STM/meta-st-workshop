@@ -7,7 +7,7 @@ inherit core-image features_check
 
 # let's make sure we have a good image...
 REQUIRED_DISTRO_FEATURES = "wayland"
-#DISTRO_FEATURES_append = " virtualization"
+DISTRO_FEATURES_append = " virtualization"
 
 IMAGE_LINGUAS = "en-us"
 
@@ -41,6 +41,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
     \
     packagegroup-st-demo \
     "
+IMAGE_INSTALL_append += "iotedge-daemon iotedge-cli libiothsm-std docker connman connman-client"
 
 # NOTE:
 #   packagegroup-st-demo are installed on rootfs to populate the package
