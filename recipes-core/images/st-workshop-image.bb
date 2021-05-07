@@ -7,6 +7,7 @@ inherit core-image features_check
 
 # let's make sure we have a good image...
 REQUIRED_DISTRO_FEATURES = "wayland"
+#DISTRO_FEATURES_append = " virtualization"
 
 IMAGE_LINGUAS = "en-us"
 
