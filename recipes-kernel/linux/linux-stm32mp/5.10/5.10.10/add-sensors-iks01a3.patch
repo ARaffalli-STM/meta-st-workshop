@@ -1,0 +1,55 @@
+diff --git a/arch/arm/boot/dts/stm32mp157a-dk1.dts b/arch/arm/boot/dts/stm32mp157a-dk1.dts
+index f415e581a..d502e8a70 100644
+--- a/arch/arm/boot/dts/stm32mp157a-dk1.dts
++++ b/arch/arm/boot/dts/stm32mp157a-dk1.dts
+@@ -26,3 +26,21 @@
+ 		stdout-path = "serial0:115200n8";
+ 	};
+ };
++
++&i2c5 {
++	status = "okay";
++
++	hts221@5f {
++		compatible = "st,hts221";
++		reg = <0x5f>;
++	};
++	lis2dw12@19 {
++		compatible = "st,lis2dw12";
++		reg = <0x19>;
++	};
++	lis2mdl@1e {
++		compatible = "st,lis2mdl";
++		reg = <0x1e>;
++		st,drdy-int-pin = <0x1>;
++	};
++};
+diff --git a/arch/arm/boot/dts/stm32mp157c-dk2.dts b/arch/arm/boot/dts/stm32mp157c-dk2.dts
+index 1c894f288..54b3c4118 100644
+--- a/arch/arm/boot/dts/stm32mp157c-dk2.dts
++++ b/arch/arm/boot/dts/stm32mp157c-dk2.dts
+@@ -99,6 +99,24 @@
+ 	};
+ };
+ 
++&i2c5 {
++	status = "okay";
++
++	hts221@5f {
++		compatible = "st,hts221";
++		reg = <0x5f>;
++	};
++	lis2dw12@19 {
++		compatible = "st,lis2dw12";
++		reg = <0x19>;
++	};
++	lis2mdl@1e {
++		compatible = "st,lis2mdl";
++		reg = <0x1e>;
++		st,drdy-int-pin = <0x1>;	
++	};
++};
++
+ &ltdc {
+ 	status = "okay";
+ 
