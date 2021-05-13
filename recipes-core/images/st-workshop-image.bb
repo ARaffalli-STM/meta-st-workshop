@@ -40,6 +40,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
     ${@bb.utils.contains('COMBINED_FEATURES', 'tpm2', 'packagegroup-security-tpm2', '', d)} \
     \
     packagegroup-st-demo \
+    workshop-tools \
     "
 IMAGE_INSTALL_append += "iotedge-daemon iotedge-cli libiothsm-std docker connman connman-client"
 
