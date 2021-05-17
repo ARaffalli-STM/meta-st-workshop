@@ -43,13 +43,13 @@ class Sensors():
         self.sensor_dictionnary['temperature'] = self.found_iio_device_with_name("in_temp_raw", "hts221")
         self.sensor_dictionnary['humidity']    = self.found_iio_device_with_name("in_humidityrelative_raw", "hts221")
 
-        self.sensor_dictionnary['accelerometer'] = self.found_iio_device_with_name("in_accel_x_raw", "lsm6dsl")
+        self.sensor_dictionnary['accelerometer'] = self.found_iio_device_with_name("in_accel_x_raw", "lis2dw12")
         if self.sensor_dictionnary['accelerometer'] is None:
             self.sensor_dictionnary['accelerometer'] = self.found_iio_device_with_name("in_accel_x_raw", "lsm6dso")
 
-        self.sensor_dictionnary['gyroscope'] = self.found_iio_device_with_name("in_anglvel_x_raw", "lsm6dsl")
+        self.sensor_dictionnary['gyroscope'] = self.found_iio_device_with_name("in_magn_x_raw", "lis2mdl")
         if self.sensor_dictionnary['gyroscope'] is None:
-            self.sensor_dictionnary['gyroscope'] = self.found_iio_device_with_name("in_anglvel_x_raw", "lsm6dso")
+            self.sensor_dictionnary['gyroscope'] = self.found_iio_device_with_name("in_magn_x_raw", "lsm6dso")
 
         print("[DEBUG] temperature   -> ", self.sensor_dictionnary['temperature'], "<")
         print("[DEBUG] humidity      -> ", self.sensor_dictionnary['humidity'], "<")
@@ -247,11 +247,11 @@ class MainUIWindow(Gtk.Window):
         hum = self.sensors.humidity_read()
         self.humidity_value_label.set_markup("<span font_desc='LiberationSans 25'>%.02f %c</span>" % (hum, '%'))
         # accel
-        accel = self.sensors.accelerometer_read()
-        self.accel_value_label.set_markup("<span font_desc='LiberationSans 25'>[ %.02f, %.02f, %.02f]</span>" % (accel[0], accel[1], accel[2]))
+        # accel = self.sensors.accelerometer_read()
+        # self.accel_value_label.set_markup("<span font_desc='LiberationSans 25'>[ %.02f, %.02f, %.02f]</span>" % (accel[0], accel[1], accel[2]))
         # gyro
-        gyro = self.sensors.gyroscope_read()
-        self.gyro_value_label.set_markup("<span font_desc='LiberationSans 25'>[ %.02f, %.02f, %.02f]</span>" % (gyro[0], gyro[1], gyro[2]))
+        # gyro = self.sensors.gyroscope_read()
+        # self.gyro_value_label.set_markup("<span font_desc='LiberationSans 25'>[ %.02f, %.02f, %.02f]</span>" % (gyro[0], gyro[1], gyro[2]))
 
         # As this is a timeout function, return True so that it
         # continues to get called
