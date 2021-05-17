@@ -102,12 +102,13 @@ class Sensors():
 
     def accelerometer_read(self):
         prefix_path = self.sensor_dictionnary['accelerometer']
-        try:
-            with open(prefix_path + "in_accel_" + 'scale', 'r') as f:
-                rscale = float(f.read())
-        except Exception as exc:
-            print("[ERROR] read %s " % prefix_path + "in_accel_" + 'scale', exc)
-            rscale = 0.0
+        #try:
+        #    with open(prefix_path + "in_accel_" + 'scale', 'r') as f:
+        #        rscale = float(f.read())
+        #except Exception as exc:
+        #    print("[ERROR] read %s " % prefix_path + "in_accel_" + 'scale', exc)
+        #    rscale = 0.0
+        rscale = 0.0 
 
         try:
             with open(prefix_path + "in_accel_" + 'x_raw', 'r') as f:
@@ -138,31 +139,31 @@ class Sensors():
     def gyroscope_read(self):
         prefix_path = self.sensor_dictionnary['gyroscope']
         try:
-            with open(prefix_path + "in_anglvel_" + 'scale', 'r') as f:
+            with open(prefix_path + "in_magn_x_" + 'scale', 'r') as f:
                 rscale = float(f.read())
         except Exception as exc:
-            print("[ERROR] read %s " % prefix_path + "in_anglvel_" + 'scale', exc)
+            print("[ERROR] read %s " % prefix_path + "in_magn_x_" + 'scale', exc)
             rscale = 0.0
         try:
-            with open(prefix_path + "in_anglvel_" + 'x_raw', 'r') as f:
+            with open(prefix_path + "in_magn_" + 'x_raw', 'r') as f:
                 xraw = float(f.read())
         except Exception as exc:
-            print("[ERROR] read %s " % prefix_path + "in_anglvel_" + 'x_raw', exc)
+            print("[ERROR] read %s " % prefix_path + "in_magn_" + 'x_raw', exc)
             xraw = 0.0
 
         gyro_x = int(xraw * rscale * 256.0 / 9.81)
         try:
-            with open(prefix_path + "in_anglvel_" + 'y_raw', 'r') as f:
+            with open(prefix_path + "in_magn_" + 'y_raw', 'r') as f:
                 yraw = float(f.read())
         except Exception as exc:
-            print("[ERROR] read %s " % prefix_path + "in_anglvel_" + 'y_raw', exc)
+            print("[ERROR] read %s " % prefix_path + "in_magn_" + 'y_raw', exc)
             yraw = 0.0
         gyro_y = int(yraw * rscale * 256.0 / 9.81)
         try:
-            with open(prefix_path + "in_anglvel_" + 'z_raw', 'r') as f:
+            with open(prefix_path + "in_magn_" + 'z_raw', 'r') as f:
                 zraw = float(f.read())
         except Exception as exc:
-            print("[ERROR] read %s " % prefix_path + "in_anglvel_" + 'z_raw', exc)
+            print("[ERROR] read %s " % prefix_path + "in_magn_" + 'z_raw', exc)
             zraw = 0.0
         gyro_z = int(zraw * rscale * 256.0 / 9.81)
         return [ gyro_x, gyro_y, gyro_z]
@@ -250,8 +251,8 @@ class MainUIWindow(Gtk.Window):
         # accel = self.sensors.accelerometer_read()
         # self.accel_value_label.set_markup("<span font_desc='LiberationSans 25'>[ %.02f, %.02f, %.02f]</span>" % (accel[0], accel[1], accel[2]))
         # gyro
-        # gyro = self.sensors.gyroscope_read()
-        # self.gyro_value_label.set_markup("<span font_desc='LiberationSans 25'>[ %.02f, %.02f, %.02f]</span>" % (gyro[0], gyro[1], gyro[2]))
+        gyro = self.sensors.gyroscope_read()
+        self.gyro_value_label.set_markup("<span font_desc='LiberationSans 25'>[ %.02f, %.02f, %.02f]</span>" % (gyro[0], gyro[1], gyro[2]))
 
         # As this is a timeout function, return True so that it
         # continues to get called
