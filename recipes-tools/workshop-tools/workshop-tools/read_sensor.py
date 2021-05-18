@@ -47,14 +47,14 @@ class Sensors():
         if self.sensor_dictionnary['accelerometer'] is None:
             self.sensor_dictionnary['accelerometer'] = self.found_iio_device_with_name("in_accel_x_raw", "lsm6dso")
 
-        self.sensor_dictionnary['gyroscope'] = self.found_iio_device_with_name("in_magn_x_raw", "lis2mdl")
-        if self.sensor_dictionnary['gyroscope'] is None:
-            self.sensor_dictionnary['gyroscope'] = self.found_iio_device_with_name("in_magn_x_raw", "lsm6dso")
+        self.sensor_dictionnary['magnetometer'] = self.found_iio_device_with_name("in_magn_x_raw", "lis2mdl")
+        if self.sensor_dictionnary['magnetometer'] is None:
+            self.sensor_dictionnary['magnetometer'] = self.found_iio_device_with_name("in_magn_x_raw", "lsm6dso")
 
         print("[DEBUG] temperature   -> ", self.sensor_dictionnary['temperature'], "<")
         print("[DEBUG] humidity      -> ", self.sensor_dictionnary['humidity'], "<")
         print("[DEBUG] accelerometer -> ", self.sensor_dictionnary['accelerometer'], "<")
-        print("[DEBUG] gyroscope     -> ", self.sensor_dictionnary['gyroscope'], "<")
+        print("[DEBUG] magnetometer     -> ", self.sensor_dictionnary['magnetometer'], "<")
 
     def temperature_read(self):
         prefix_path = self.sensor_dictionnary['temperature']
@@ -102,13 +102,12 @@ class Sensors():
 
     def accelerometer_read(self):
         prefix_path = self.sensor_dictionnary['accelerometer']
-        #try:
-        #    with open(prefix_path + "in_accel_" + 'scale', 'r') as f:
-        #        rscale = float(f.read())
-        #except Exception as exc:
-        #    print("[ERROR] read %s " % prefix_path + "in_accel_" + 'scale', exc)
-        #    rscale = 0.0
-        rscale = 0.0 
+        try:
+            with open(prefix_path + "in_accel_x_" + 'scale', 'r') as f:
+                rscale = float(f.read())
+        except Exception as exc:
+            print("[ERROR] read %s " % prefix_path + "in_accel_x_" + 'scale', exc)
+            rscale = 0.0
 
         try:
             with open(prefix_path + "in_accel_" + 'x_raw', 'r') as f:
@@ -136,8 +135,8 @@ class Sensors():
         accel_z = int(zraw * rscale * 256.0 / 9.81)
         return [ accel_x, accel_y, accel_z]
 
-    def gyroscope_read(self):
-        prefix_path = self.sensor_dictionnary['gyroscope']
+    def magnetometer_read(self):
+        prefix_path = self.sensor_dictionnary['magnetometer']
         try:
             with open(prefix_path + "in_magn_x_" + 'scale', 'r') as f:
                 rscale = float(f.read())
@@ -151,22 +150,22 @@ class Sensors():
             print("[ERROR] read %s " % prefix_path + "in_magn_" + 'x_raw', exc)
             xraw = 0.0
 
-        gyro_x = int(xraw * rscale * 256.0 / 9.81)
+        magn_x = int(xraw * rscale * 256.0 / 9.81)
         try:
             with open(prefix_path + "in_magn_" + 'y_raw', 'r') as f:
                 yraw = float(f.read())
         except Exception as exc:
             print("[ERROR] read %s " % prefix_path + "in_magn_" + 'y_raw', exc)
             yraw = 0.0
-        gyro_y = int(yraw * rscale * 256.0 / 9.81)
+        magn_y = int(yraw * rscale * 256.0 / 9.81)
         try:
             with open(prefix_path + "in_magn_" + 'z_raw', 'r') as f:
                 zraw = float(f.read())
         except Exception as exc:
             print("[ERROR] read %s " % prefix_path + "in_magn_" + 'z_raw', exc)
             zraw = 0.0
-        gyro_z = int(zraw * rscale * 256.0 / 9.81)
-        return [ gyro_x, gyro_y, gyro_z]
+        magn_z = int(zraw * rscale * 256.0 / 9.81)
+        return [ magn_x, magn_y, magn_z]
 
 # -------------------------------------------------------------------
 # -------------------------------------------------------------------
@@ -210,24 +209,25 @@ class MainUIWindow(Gtk.Window):
         sensor_box.add(humidity_box)
 
         # Accel
-        accel_label = Gtk.Label()
-        accel_label.set_markup("<span font_desc='LiberationSans 25'>Accelerometer</span>")
-        self.accel_value_label = Gtk.Label()
-        self.accel_value_label.set_markup("<span font_desc='LiberationSans 25'> [ --.--, --.--, --.--]</span>")
-        accel_box = Gtk.HBox(homogeneous=False, spacing=0)
-        accel_box.add(accel_label)
-        accel_box.add(self.accel_value_label)
-        sensor_box.add(accel_box)
+        # Accelerometer is removed since the latency when reading the registers makes the python script misbehave - to be investigated
+#        accel_label = Gtk.Label()
+#        accel_label.set_markup("<span font_desc='LiberationSans 25'>Accelerometer</span>")
+#        self.accel_value_label = Gtk.Label()
+#        self.accel_value_label.set_markup("<span font_desc='LiberationSans 25'> [ --.--, --.--, --.--]</span>")
+#        accel_box = Gtk.HBox(homogeneous=False, spacing=0)
+#        accel_box.add(accel_label)
+#        accel_box.add(self.accel_value_label)
+#        sensor_box.add(accel_box)
 
-        # Gyroscope
-        gyro_label = Gtk.Label()
-        gyro_label.set_markup("<span font_desc='LiberationSans 25'>Gyroscope</span>")
-        self.gyro_value_label = Gtk.Label()
-        self.gyro_value_label.set_markup("<span font_desc='LiberationSans 25'> [ --.--, --.--, --.--]</span>")
-        gyro_box = Gtk.HBox(homogeneous=False, spacing=0)
-        gyro_box.add(gyro_label)
-        gyro_box.add(self.gyro_value_label)
-        sensor_box.add(gyro_box)
+        # Magnetometer
+        magn_label = Gtk.Label()
+        magn_label.set_markup("<span font_desc='LiberationSans 25'>Magnetometer</span>")
+        self.magn_value_label = Gtk.Label()
+        self.magn_value_label.set_markup("<span font_desc='LiberationSans 25'> [ --.--, --.--, --.--]</span>")
+        magn_box = Gtk.HBox(homogeneous=False, spacing=0)
+        magn_box.add(magn_label)
+        magn_box.add(self.magn_value_label)
+        sensor_box.add(magn_box)
 
         self.add(sensor_box)
 
@@ -250,9 +250,9 @@ class MainUIWindow(Gtk.Window):
         # accel
         # accel = self.sensors.accelerometer_read()
         # self.accel_value_label.set_markup("<span font_desc='LiberationSans 25'>[ %.02f, %.02f, %.02f]</span>" % (accel[0], accel[1], accel[2]))
-        # gyro
-        gyro = self.sensors.gyroscope_read()
-        self.gyro_value_label.set_markup("<span font_desc='LiberationSans 25'>[ %.02f, %.02f, %.02f]</span>" % (gyro[0], gyro[1], gyro[2]))
+        # magn
+        magn = self.sensors.magnetometer_read()
+        self.magn_value_label.set_markup("<span font_desc='LiberationSans 25'>[ %d mG, %d mG, %d mG]</span>" % (magn[0], magn[1], magn[2]))
 
         # As this is a timeout function, return True so that it
         # continues to get called
