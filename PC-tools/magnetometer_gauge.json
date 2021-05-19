@@ -1,5 +1,221 @@
 [
     {
+        "id": "1b4d697a.e9be97",
+        "type": "tab",
+        "label": "Basic_Flow",
+        "disabled": false,
+        "info": "# Basic flow to start with STM32CubeMonitor."
+    },
+    {
+        "id": "8a6639df.ebfb58",
+        "type": "serial in",
+        "z": "1b4d697a.e9be97",
+        "name": "",
+        "serial": "51cb2de5.738cf4",
+        "x": 70,
+        "y": 120,
+        "wires": [
+            [
+                "8f6d7e53.ef85a"
+            ]
+        ]
+    },
+    {
+        "id": "8f6d7e53.ef85a",
+        "type": "csv",
+        "z": "1b4d697a.e9be97",
+        "name": "",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\r\\n",
+        "temp": "x,y,z",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 210,
+        "y": 260,
+        "wires": [
+            [
+                "ac15581f.ec2098",
+                "86af494c.284dd8",
+                "8dd4c34f.4fba"
+            ]
+        ]
+    },
+    {
+        "id": "ac15581f.ec2098",
+        "type": "function",
+        "z": "1b4d697a.e9be97",
+        "name": "x",
+        "func": "msg.payload=msg.payload.x\nmsg.topic='x';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 350,
+        "y": 260,
+        "wires": [
+            [
+                "714d48f4.fc4188",
+                "c110667b.5216b8",
+                "27200532.3b3a1a"
+            ]
+        ]
+    },
+    {
+        "id": "86af494c.284dd8",
+        "type": "function",
+        "z": "1b4d697a.e9be97",
+        "name": "y",
+        "func": "msg.payload=msg.payload.y\nmsg.topic='y';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 350,
+        "y": 300,
+        "wires": [
+            [
+                "714d48f4.fc4188",
+                "c1bf4178.4207c"
+            ]
+        ]
+    },
+    {
+        "id": "8dd4c34f.4fba",
+        "type": "function",
+        "z": "1b4d697a.e9be97",
+        "name": "z",
+        "func": "msg.payload=msg.payload.z\nmsg.topic='z';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 350,
+        "y": 340,
+        "wires": [
+            [
+                "714d48f4.fc4188",
+                "f3281c2b.7b2e1"
+            ]
+        ]
+    },
+    {
+        "id": "714d48f4.fc4188",
+        "type": "ui_chart",
+        "z": "1b4d697a.e9be97",
+        "name": "chart XYZ",
+        "group": "f9c34dde.1e2f4",
+        "order": 0,
+        "width": "15",
+        "height": "8",
+        "label": "Magnetic field intensity X,Y,Z",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "auto",
+        "interpolate": "linear",
+        "nodata": "mG",
+        "dot": false,
+        "ymin": "-20",
+        "ymax": "20",
+        "removeOlder": "8",
+        "removeOlderPoints": "3000",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#00ff08",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 540,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c110667b.5216b8",
+        "type": "ui_gauge",
+        "z": "1b4d697a.e9be97",
+        "name": "gauge X",
+        "group": "f9c34dde.1e2f4",
+        "order": 1,
+        "width": "5",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Magnetic field intensity X",
+        "label": "mG",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "20",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 540,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "27200532.3b3a1a",
+        "type": "debug",
+        "z": "1b4d697a.e9be97",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c1bf4178.4207c",
+        "type": "ui_gauge",
+        "z": "1b4d697a.e9be97",
+        "name": "gauge Y",
+        "group": "f9c34dde.1e2f4",
+        "order": 1,
+        "width": "5",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Magnetic field intensity Y",
+        "label": "mG",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "20",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 540,
+        "y": 300,
+        "wires": []
+    },
+    {
         "id": "f3281c2b.7b2e1",
         "type": "ui_gauge",
         "z": "1b4d697a.e9be97",
@@ -24,6 +240,25 @@
         "x": 540,
         "y": 340,
         "wires": []
+    },
+    {
+        "id": "51cb2de5.738cf4",
+        "type": "serial-port",
+        "serialport": "/dev/ttyACM0",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "1000"
     },
     {
         "id": "f9c34dde.1e2f4",
