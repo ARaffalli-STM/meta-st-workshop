@@ -1,0 +1,9 @@
+To use STM32CubeMonitor on a UBUNTU PC to view the magentic field intensity, please follow the below steps:
+- Plug the IKS01A3 MEMS expension board to your STM32MPU-DKx board
+- Compile the appropriate image and program the flash
+- Boot the board and connect it to the host PC via ST-Link port
+- Open a console attached to the serial link offered by ST-Link and execute the following commmand:
+while true; do ./read_sensor.sh mag | tail -n 1 | sed -e 's/Magnetometer value: \[ //'  | sed -e 's/\]//' | sed -e 's/ //g'; sleep 0.2; done
+- The output should be as below,  if it is ok, close the console application
+- Open STM32CubeMonitor on the UBUNTU PC and import magnetometer_gauge.json 
+- Press "DEPLOY", then press "DASHBOARD"
