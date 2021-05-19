@@ -1,0 +1,46 @@
+[
+    {
+        "id": "f3281c2b.7b2e1",
+        "type": "ui_gauge",
+        "z": "1b4d697a.e9be97",
+        "name": "gauge Z",
+        "group": "f9c34dde.1e2f4",
+        "order": 1,
+        "width": "5",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Magnetic field intensity Z",
+        "label": "mG",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "20",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 540,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "f9c34dde.1e2f4",
+        "type": "ui_group",
+        "name": "Chart",
+        "tab": "17d09b07.741a55",
+        "order": 1,
+        "disp": true,
+        "width": 15,
+        "collapse": false
+    },
+    {
+        "id": "17d09b07.741a55",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
