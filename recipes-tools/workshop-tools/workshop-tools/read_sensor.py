@@ -150,21 +150,21 @@ class Sensors():
             print("[ERROR] read %s " % prefix_path + "in_magn_" + 'x_raw', exc)
             xraw = 0.0
 
-        magn_x = int(xraw * rscale * 256.0 / 9.81)
+        magn_x = int(xraw * rscale * 1000)
         try:
             with open(prefix_path + "in_magn_" + 'y_raw', 'r') as f:
                 yraw = float(f.read())
         except Exception as exc:
             print("[ERROR] read %s " % prefix_path + "in_magn_" + 'y_raw', exc)
             yraw = 0.0
-        magn_y = int(yraw * rscale * 256.0 / 9.81)
+        magn_y = int(yraw * rscale * 1000)
         try:
             with open(prefix_path + "in_magn_" + 'z_raw', 'r') as f:
                 zraw = float(f.read())
         except Exception as exc:
             print("[ERROR] read %s " % prefix_path + "in_magn_" + 'z_raw', exc)
             zraw = 0.0
-        magn_z = int(zraw * rscale * 256.0 / 9.81)
+        magn_z = int(zraw * rscale * 1000)
         return [ magn_x, magn_y, magn_z]
 
 # -------------------------------------------------------------------

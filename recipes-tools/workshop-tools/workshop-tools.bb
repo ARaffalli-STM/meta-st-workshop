@@ -29,3 +29,4 @@ do_install() {
 }
 
 RDEPENDS_${PN} = "bash"
+RDEPENDS_${PN} += "python3-core python3-pygobject gtk+3 python3-resource python3-threading"

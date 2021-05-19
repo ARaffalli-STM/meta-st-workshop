@@ -77,11 +77,11 @@ yraw=`cat ${iio_device_string}/in_magn_y_raw`
 yscale=`cat ${iio_device_string}/in_magn_y_scale`
 zraw=`cat ${iio_device_string}/in_magn_z_raw`
 zscale=`cat ${iio_device_string}/in_magn_z_scale`
-printf "Value read: X (raw/scale)  %d / %.06f \n" $xraw $xscale
-printf "Value read: Y (raw/scale)  %d / %.06f \n" $yraw $yscale
-printf "Value read: Z (raw/scale)  %d / %.06f \n" $zraw $zscale
+printf "Value read: X (raw*scale)  %d * %.06f \n" $xraw $xscale
+printf "Value read: Y (raw*scale)  %d * %.06f \n" $yraw $yscale
+printf "Value read: Z (raw&scale)  %d * %.06f \n" $zraw $zscale
 
-factor=`echo "scale=2;256.0 / 9.81" | bc`
+factor=1000
 xval=`echo "scale=2;$xraw*$xscale*$factor" | bc`
 yval=`echo "scale=2;$yraw*$yscale*$factor" | bc`
 zval=`echo "scale=2;$zraw*$zscale*$factor" | bc`
