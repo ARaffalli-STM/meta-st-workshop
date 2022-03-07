@@ -7,4 +7,3 @@ KERNEL_CONFIG_FRAGMENTS_append += "${WORKDIR}/fragments/5.10/fragment-add-rtl818
 SRC_URI_append = " file://5.10/fragment-add-rtl8188eu.config;subdir=fragments "
 
 SRC_URI += " file://5.10/5.10.10/add-sensors-iks01a3.patch "
-SRC_URI += " file://5.10/5.10.10/rtl8188eu-Add-Edimax-EW-7811UN-V2-to-device-table.patch "
